@@ -18,6 +18,7 @@ const is_public_decorator_1 = require("../shared/decorators/is-public.decorator"
 const user_entity_1 = require("../users/user.entity");
 const auth_service_1 = require("./auth.service");
 const current_user_1 = require("./current-user/current-user");
+const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const local_auth_guard_1 = require("./guards/local-auth.guard");
 let AuthController = class AuthController {
     constructor(authService) {
@@ -25,6 +26,9 @@ let AuthController = class AuthController {
     }
     login(user) {
         return this.authService.login(user);
+    }
+    getUser(user) {
+        return user;
     }
 };
 __decorate([
@@ -37,6 +41,14 @@ __decorate([
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('usuario'),
+    __param(0, (0, current_user_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "getUser", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

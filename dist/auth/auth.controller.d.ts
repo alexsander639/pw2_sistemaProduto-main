@@ -4,4 +4,5 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     login(user: User): Promise<import("./models/user-token.model").UserToken>;
+    getUser(user: any): any;
 }
