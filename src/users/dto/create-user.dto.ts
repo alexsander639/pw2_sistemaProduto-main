@@ -9,6 +9,10 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
+  /**
+    * O email é utilizado para a autenticação do usuário
+    * @example exemplo@exemplo.com
+    */
   @IsNotEmpty({
     message: 'Informe um endereço de email',
   })
@@ -23,6 +27,10 @@ export class CreateUserDto {
   })
   email: string;
 
+  /**
+    * O nome é utilizado para identificação do usuário
+    * @example Alex Sander
+    */
   @IsNotEmpty({
     message: 'Informe o nome do usuário',
   })
@@ -32,6 +40,11 @@ export class CreateUserDto {
   @IsString()
   name: string;
 
+  /**
+    * A senha é utilizada para a autenticação e segurança do usuário
+    * Deve conter no mínimo 6 caracteres
+    * @example Abc@123
+    */
   @IsNotEmpty({
     message: 'Informe uma senha',
   })

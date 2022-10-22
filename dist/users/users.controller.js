@@ -13,11 +13,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
+const openapi = require("@nestjs/swagger");
 const update_user_dto_1 = require("./dto/update-user-dto");
 const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const users_service_1 = require("./users.service");
 const is_public_decorator_1 = require("../shared/decorators/is-public.decorator");
+const swagger_1 = require("@nestjs/swagger");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -39,16 +41,20 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Post)('criar'),
+    openapi.ApiResponse({ status: 201, type: require("./user.entity").User }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "create", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Get)('buscar'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
     __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(2, (0, common_1.Query)('search')),
@@ -57,15 +63,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Get)(':id'),
+    openapi.ApiResponse({ status: 200, type: require("./user.entity").User }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Patch)(':id'),
+    openapi.ApiResponse({ status: 200, type: require("./user.entity").User }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -73,13 +83,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Delete)(':id'),
+    openapi.ApiResponse({ status: 200, type: Boolean }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 UsersController = __decorate([
+    (0, swagger_1.ApiTags)('users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

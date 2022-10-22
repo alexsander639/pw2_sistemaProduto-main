@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const is_public_decorator_1 = require("../shared/decorators/is-public.decorator");
 const user_entity_1 = require("../users/user.entity");
@@ -32,18 +33,22 @@ let AuthController = class AuthController {
     }
 };
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Post)('login'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
+    openapi.ApiResponse({ status: common_1.HttpStatus.OK, type: Object }),
     __param(0, (0, current_user_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('usuario'),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, current_user_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

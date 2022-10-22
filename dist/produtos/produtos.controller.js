@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProdutosController = void 0;
+const openapi = require("@nestjs/swagger");
 const produtos_service_1 = require("./produtos.service");
 const create_produto_dto_1 = require("./dto/create-produto.dto");
 const common_1 = require("@nestjs/common");
@@ -34,14 +35,18 @@ let ProdutosController = class ProdutosController {
     }
 };
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Post)('criar'),
+    openapi.ApiResponse({ status: 201, type: require("./produto.entity").Produto }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_produto_dto_1.CreateProdutoDto]),
     __metadata("design:returntype", void 0)
 ], ProdutosController.prototype, "create", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Get)('buscar'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
     __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(2, (0, common_1.Query)('search')),
@@ -50,15 +55,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProdutosController.prototype, "findAll", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Get)(':id'),
+    openapi.ApiResponse({ status: 200, type: require("./produto.entity").Produto }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ProdutosController.prototype, "findOne", null);
 __decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
+    openapi.ApiResponse({ status: common_1.HttpStatus.NO_CONTENT }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
