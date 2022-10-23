@@ -28,6 +28,18 @@ export class CreateUserDto {
   email: string;
 
   /**
+    * O tipo de usuário é utilizado para liberar acessos restritos
+    * @example PF ou PJ
+    */
+   @IsNotEmpty({
+    message: 'Informe o tipo de usuário',
+  })
+  @MaxLength(2, {
+    message: 'O endereço de email deve ter 2 caracteres',
+  })
+  role: string;
+
+  /**
     * O nome é utilizado para identificação do usuário
     * @example Alex Sander
     */

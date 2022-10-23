@@ -18,7 +18,7 @@ let User = class User extends typeorm_1.BaseEntity {
         this.password = (0, bcrypt_1.hashSync)(this.password, 10);
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, name: { required: true, type: () => String }, status: { required: true, type: () => Boolean }, password: { required: false, type: () => String } };
+        return { id: { required: true, type: () => Number }, email: { required: true, type: () => String }, name: { required: true, type: () => String }, role: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
 };
 __decorate([
@@ -34,11 +34,11 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, default: true }),
-    __metadata("design:type", Boolean)
-], User.prototype, "status", void 0);
+    (0, typeorm_1.Column)({ nullable: false, type: 'varchar', length: 2 }),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ select: false }),
+    (0, typeorm_1.Column)({ nullable: false, select: false }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([

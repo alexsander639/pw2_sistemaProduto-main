@@ -21,11 +21,11 @@ export class User extends BaseEntity {
   @Column({ nullable: false, type: 'varchar', length: 200 })
   name: string;
 
-  @Column({ nullable: false, default: true })
-  status: boolean;
+  @Column({ nullable: false, type: 'varchar', length: 2 })
+  role: string;
 
-  @Column({ select: false })
-  password?: string;
+  @Column({ nullable: false, select: false })
+  password: string;
 
   @BeforeInsert()
   hashPassword() {
