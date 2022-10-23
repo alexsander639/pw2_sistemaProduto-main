@@ -20,6 +20,8 @@ const common_1 = require("@nestjs/common");
 const role_guard_1 = require("../auth/guards/role.guard");
 const roles_decorator_1 = require("../shared/decorators/roles.decorator");
 const role_enum_1 = require("../enums/role.enum");
+const swagger_1 = require("@nestjs/swagger");
+const update_produto_dto_1 = require("./dto/update-produto.dto");
 let ProdutosController = class ProdutosController {
     constructor(produtosService) {
         this.produtosService = produtosService;
@@ -32,6 +34,9 @@ let ProdutosController = class ProdutosController {
     }
     findOne(id) {
         return this.produtosService.findOne(id);
+    }
+    update(id, updateProdutoDto) {
+        return this.produtosService.update(id, updateProdutoDto);
     }
     remove(id) {
         return this.produtosService.remove(id);
@@ -68,7 +73,18 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProdutosController.prototype, "findOne", null);
 __decorate([
-    openapi.ApiOperation({ description: "@Patch(':id')\n\n  update(\n\n\n  ) {\n    return this.produtosService.update(id, updateProdutoDto);\n  }" }),
+    openapi.ApiOperation({ description: "" }),
+    (0, common_1.Patch)(':id'),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin),
+    openapi.ApiResponse({ status: 200, type: require("./produto.entity").Produto }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, update_produto_dto_1.UpdateProdutoDto]),
+    __metadata("design:returntype", void 0)
+], ProdutosController.prototype, "update", null);
+__decorate([
+    openapi.ApiOperation({ description: "" }),
     (0, common_1.Delete)(':id'),
     (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
@@ -79,6 +95,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProdutosController.prototype, "remove", null);
 ProdutosController = __decorate([
+    (0, swagger_1.ApiTags)('produtos'),
     (0, common_1.Controller)('produtos'),
     (0, common_1.UseGuards)(role_guard_1.RolesGuard),
     __metadata("design:paramtypes", [produtos_service_1.ProdutosService])

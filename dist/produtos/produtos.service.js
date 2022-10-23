@@ -46,6 +46,14 @@ let ProdutosService = class ProdutosService {
         }
         return user;
     }
+    async update(id, updateProdutoDto) {
+        await this.repository.update(id, updateProdutoDto);
+        const produto = await this.repository.findOneBy({ id });
+        if (!produto) {
+            throw new record_not_found_exception_1.RecordNotFoundException();
+        }
+        return produto;
+    }
     async remove(id) {
         const user = await this.repository.delete(id);
         if (!(user === null || user === void 0 ? void 0 : user.affected)) {

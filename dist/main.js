@@ -10,6 +10,7 @@ async function bootstrap() {
         .setDescription('Documentação referente ao trabalho da disciplina de Programação Web II, ministrada pelo professor Humberto')
         .setVersion('1.0')
         .addTag('users')
+        .addTag('produtos')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);

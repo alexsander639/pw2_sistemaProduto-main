@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateProdutoDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, marca: { required: true, type: () => String }, valor: { required: true, type: () => Number }, descricao: { required: true, type: () => String } };
+        return { name: { required: true, type: () => String, description: "O nome do produto \u00E9 para identifica\u00E7\u00E3o do mesmo" }, marca: { required: true, type: () => String, description: "A marca distingue um produto do outro", example: "LG" }, valor: { required: true, type: () => Number, description: "O valor em R$ do produto" }, descricao: { required: true, type: () => String, description: "A descri\u00E7ao informa as caracteristicas do produto" } };
     }
 }
 __decorate([
@@ -28,7 +28,7 @@ __decorate([
 ], CreateProdutoDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({
-        message: 'Informe um nome de produto',
+        message: 'Informe a marca do produto',
     }),
     (0, class_validator_1.MaxLength)(200, {
         message: 'A marca deve ter menos de 200 caracteres',

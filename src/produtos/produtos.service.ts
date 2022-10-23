@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { RecordNotFoundException } from '@exceptions/record-not-found.exception';
+import { UpdateProdutoDto } from './dto/update-produto.dto';
 
 @Injectable()
 export class ProdutosService {
@@ -40,6 +41,16 @@ export class ProdutosService {
     }
 
     return user;
+  }
+
+  async update(id: number, updateProdutoDto: UpdateProdutoDto): Promise<Produto> {
+    await this.repository.update(id, updateProdutoDto);
+    const produto = await this.repository.findOneBy({ id });
+    if (!produto) {
+      throw new RecordNotFoundException();
+    }
+
+    return produto;
   }
 
   async remove(id: number) {
