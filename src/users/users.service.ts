@@ -21,29 +21,11 @@ export class UsersService {
     private readonly repository: Repository<User>,
   ) {}
 
-  /*create(createUpdateDto: CreateUserDto) {
-    const user = new User();
-    user.name = createUpdateDto.name;
-    user.email = createUpdateDto.email;
-    user.password = createUpdateDto.password;
-    user.status = true;
-
-    return this.repository.save(user);
-  }*/
-
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = this.repository.create(createUserDto);
     const { password, ...result } = await this.repository.save(user);
     return result as User;
   }
-
-  /*findAll(options: IPaginationOptions, search: string) {
-    const where: FindOptionsWhere<User> = {};
-    if (search) {
-      where.name = ILike(`%${search}%`);
-    }
-    return paginate<User>(this.repository, options, { where });
-  }*/
 
   findAll(
     options: IPaginationOptions,
@@ -56,16 +38,6 @@ export class UsersService {
 
     return paginate<User>(this.repository, options, { where });
   }
-
-  /*async findOne(id: number) {
-    const user = await this.repository.findOneBy({ id });
-
-    if (!user) {
-      throw new RecordNotFoundException();
-    }
-
-    return user;
-  }*/
 
   async findOne(id: number): Promise<User> {
     const user = await this.repository.findOneBy({ id });
@@ -92,16 +64,6 @@ export class UsersService {
     }
   }
 
-  /*async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.repository.update(id, updateUserDto);
-    const user = await this.repository.findOneBy({ id });
-    if (!user) {
-      throw new RecordNotFoundException();
-    }
-
-    return user;
-  }*/
-
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     await this.repository.update(id, updateUserDto);
     const user = await this.repository.findOneBy({ id });
@@ -111,15 +73,6 @@ export class UsersService {
 
     return user;
   }
-
-  /*async remove(id: number) {
-    const user = await this.repository.delete(id);
-
-    if (!user?.affected) {
-      throw new RecordNotFoundException();
-    }
-    return user;
-  }*/
 
   async remove(id: number): Promise<boolean> {
     const user = await this.repository.delete(id);

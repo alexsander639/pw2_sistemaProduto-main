@@ -14,12 +14,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const openapi = require("@nestjs/swagger");
+const role_guard_1 = require("../auth/guards/role.guard");
 const update_user_dto_1 = require("./dto/update-user-dto");
 const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const users_service_1 = require("./users.service");
 const is_public_decorator_1 = require("../shared/decorators/is-public.decorator");
 const swagger_1 = require("@nestjs/swagger");
+const roles_decorator_1 = require("../shared/decorators/roles.decorator");
+const role_enum_1 = require("../enums/role.enum");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -52,8 +55,9 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     openapi.ApiOperation({ description: "" }),
-    (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Get)('buscar'),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin, role_enum_1.Role.User),
     openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
     __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
@@ -64,8 +68,9 @@ __decorate([
 ], UsersController.prototype, "findAll", null);
 __decorate([
     openapi.ApiOperation({ description: "" }),
-    (0, is_public_decorator_1.IsPublic)(),
     (0, common_1.Get)(':id'),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin, role_enum_1.Role.User),
     openapi.ApiResponse({ status: 200, type: require("./user.entity").User }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
@@ -75,6 +80,8 @@ __decorate([
 __decorate([
     openapi.ApiOperation({ description: "" }),
     (0, common_1.Patch)(':id'),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin, role_enum_1.Role.User),
     openapi.ApiResponse({ status: 200, type: require("./user.entity").User }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
@@ -85,6 +92,8 @@ __decorate([
 __decorate([
     openapi.ApiOperation({ description: "" }),
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin, role_enum_1.Role.User),
     openapi.ApiResponse({ status: 200, type: Boolean }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),

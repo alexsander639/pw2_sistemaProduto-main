@@ -22,11 +22,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Produto.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: 'varchar', length: 200 }),
+    (0, typeorm_1.Column)({ nullable: false, type: "varchar", length: 200 }),
     __metadata("design:type", String)
 ], Produto.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: 'varchar', length: 200 }),
+    (0, typeorm_1.Column)({ nullable: false, type: "varchar", length: 200 }),
     __metadata("design:type", String)
 ], Produto.prototype, "marca", void 0);
 __decorate([
@@ -34,15 +34,16 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Produto.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: 'double' }),
+    (0, typeorm_1.Column)({ nullable: false, type: "double" }),
     __metadata("design:type", Number)
 ], Produto.prototype, "valor", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, type: 'varchar', length: 1000 }),
+    (0, typeorm_1.Column)({ nullable: false, type: "varchar", length: 1000 }),
     __metadata("design:type", String)
 ], Produto.prototype, "descricao", void 0);
 Produto = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, typeorm_1.TableInheritance)({ column: { type: "varchar", name: "tipo" } })
 ], Produto);
 exports.Produto = Produto;
 //# sourceMappingURL=produto.entity.js.map

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RolesGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
-const jwt_decode_1 = require("jwt-decode");
 const users_service_1 = require("../../users/users.service");
 let RolesGuard = class RolesGuard {
     constructor(reflector, usersService) {
@@ -20,11 +19,10 @@ let RolesGuard = class RolesGuard {
         this.usersService = usersService;
     }
     async canActivate(context) {
-        const token = context.getArgs()[0].headers.authentication.split(' ')[1];
-        const { username } = (0, jwt_decode_1.default)(context.getArgs()[0].headers.authentication.split(' ')[1]);
-        const user = await this.usersService.findOne(username);
-        const roles = this.reflector.get('roles', context.getHandler());
-        const total_roles = roles.filter(role => role === user.role);
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;
+        const roles = this.reflector.get("roles", context.getHandler());
+        const total_roles = roles.filter((role) => role === user.role);
         if (total_roles.length >= 1) {
             return true;
         }

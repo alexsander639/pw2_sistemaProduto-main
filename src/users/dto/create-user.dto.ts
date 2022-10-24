@@ -29,7 +29,7 @@ export class CreateUserDto {
 
   /**
     * O tipo de usuário é utilizado para liberar acessos restritos
-    * @example PF ou PJ
+    * @example pf ou pj
     */
    @IsNotEmpty({
     message: 'Informe o tipo de usuário',
@@ -68,12 +68,4 @@ export class CreateUserDto {
     message: 'Senha muito fácil',
   })
   password: string;
-
-  /*@IsNotEmpty({
-    message: 'Informe a confirmação de senha',
-  })
-  @MinLength(6, {
-    message: 'A confirmação de senha deve ter no mínimo 6 caracteres',
-  })
-  passwordConfirmation: string;*/
 }
