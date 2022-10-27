@@ -1,23 +1,12 @@
-import { NestFactory } from "@nestjs/core";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { AppModule } from "./app.module";
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  const config = new DocumentBuilder()
-    .setTitle("Documentação com Swagger - Loja de Produtos")
-    .setDescription(
-      "Documentação referente ao trabalho da disciplina de Programação Web II, ministrada pelo professor Humberto"
-    )
-    .setVersion("1.0")
-    .addTag("users")
-    .addTag("produtos")
-    .build();
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("api", app, document);
-
-  await app.listen(3000);
+if (environment.production) {
+  enableProdMode();
 }
-bootstrap();
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
