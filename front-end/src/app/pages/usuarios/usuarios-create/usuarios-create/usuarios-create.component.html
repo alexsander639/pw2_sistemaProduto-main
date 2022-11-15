@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>Cadastrar novo Usuário</mat-card-title>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Nome</mat-label>
+      <input matInput name="nome" placeholder="Insira o nome" formControlName="name"/>
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+      <mat-label>Pessoa Física ou Jurídica</mat-label>
+      <mat-select name="role" formControlName="role">
+        <mat-option *ngFor="let role of roleDisponivel" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('role')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>E-mail</mat-label>
+      <input matInput name="email" placeholder="Insira um email" formControlName="email"/>
+      <mat-error *ngIf="form.get('email')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Senha</mat-label>
+      <input matInput name="password" placeholder="Insira uma senha" formControlName="password"/>
+      <mat-error *ngIf="form.get('password')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <button mat-raised-button (click)="create()" color="primary">
+    Cadastrar
+  </button>
+
+  <button mat-raised-button (click)="cancel()">
+    Cancelar
+  </button>
+</mat-card>
+
+
