@@ -39,8 +39,17 @@ export class CreateProdutoDto {
     * A descriçao informa as caracteristicas do produto
     * @example Monitor Lg, 23' pol, LED
     */
-  @MaxLength(1000, {
+   @MaxLength(1000, {
     message: 'A descricao deve ter menos de 1000 caracteres',
   })
   descricao: string;
+
+  /**
+    * O tipo do produto
+    * @example Monitor, Cooler, null
+    */
+   @MaxLength(1000, {
+    message: 'O tipo deve ter menos de 1000 caracteres',
+  })
+  tipo: string;
 }

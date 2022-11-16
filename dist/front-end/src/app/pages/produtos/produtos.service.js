@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProdutosService = void 0;
+const rxjs_1 = require("rxjs");
 const http_1 = require("@angular/common/http");
 const core_1 = require("@angular/core");
 const snack_bar_1 = require("@angular/material/snack-bar");
@@ -20,6 +21,25 @@ let ProdutosService = class ProdutosService {
         this.http = http;
         this.baseApi = '/produtos';
     }
+    create(produto) {
+        return this.http.post(environment_1.environment.baseUrl + this.baseApi + '/criar', produto);
+    }
+    findById(id) {
+        return this.http.get(environment_1.environment.baseUrl + this.baseApi + `/${id}`);
+    }
+    update(id, produto) {
+        return this.http.patch(environment_1.environment.baseUrl + this.baseApi + `/${id}`, produto);
+    }
+    delete(id) {
+        return this.http.delete(environment_1.environment.baseUrl + this.baseApi + `/${id}`);
+    }
+    listAll(page, limit, search) {
+        let params = new http_1.HttpParams().set('page', page).set('limit', limit);
+        if (search === null || search === void 0 ? void 0 : search.trim()) {
+            params = params.set('search', search.trim());
+        }
+        return this.http.get(environment_1.environment.baseUrl + this.baseApi + '/buscar', { params });
+    }
     showMessage(msg, isError = false) {
         this.snackBar.open(msg, 'X', {
             duration: 5000,
@@ -29,7 +49,8 @@ let ProdutosService = class ProdutosService {
         });
     }
     list() {
-        return this.http.get(environment_1.environment.baseUrl + this.baseApi);
+        const params = new http_1.HttpParams().set('limit', '99');
+        return this.http.get(environment_1.environment.baseUrl + this.baseApi + '/buscar', { params }).pipe((0, rxjs_1.map)((res) => res.items));
     }
 };
 ProdutosService = __decorate([

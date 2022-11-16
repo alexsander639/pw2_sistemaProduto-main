@@ -1,6 +1,6 @@
 import { Produto } from "./produtos.model";
 
-export interface Cooler{
-  produto: Produto;
+export interface Teclado extends Produto{
   rgb: boolean;
+  mecanico: boolean;
 }

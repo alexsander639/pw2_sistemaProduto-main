@@ -5,4 +5,5 @@ export interface Produto {
     status: boolean;
     valor: number;
     descricao: string;
+    tipo: string;
 }

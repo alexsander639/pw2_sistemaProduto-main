@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Produto } from './../../models/produtos.model';
+import { Produto } from './../../models/produtos.models/produtos.model';
 import { environment } from './../../../environments/environment'
 
 @Injectable({
@@ -17,9 +17,39 @@ export class ProdutosService {
     private readonly http: HttpClient
     ) { }
 
-  create(produto: Produto): Observable<Produto>{
-    return this.http.post<Produto>(environment.baseUrl + this.baseApi + '/criar', produto);
+  create(produto: Produto, tipoProduto: string): Observable<Produto>{
+    return this.http.post<Produto>(environment.baseUrl + this.baseApi + tipoProduto, produto);
   }
+
+  findById(id: number): Observable<Produto>{
+    return this.http.get<Produto>(environment.baseUrl + this.baseApi + `/${id}`);
+  }
+
+  update(id: number, produto: Produto): Observable<Produto>{
+    return this.http.patch<Produto>(environment.baseUrl + this.baseApi + `/${id}`, produto);
+  }
+
+  delete(id: number): Observable<boolean>{
+    return this.http.delete<boolean>(environment.baseUrl + this.baseApi + `/${id}`);
+  }
+
+  listAll(
+    page: number,
+    limit: number,
+    search?: string): Observable<ResponseDataList<Produto>>{
+    let params = new HttpParams().set('page', page).set('limit', limit);
+    if(search?.trim()){
+      params = params.set('search', search.trim());
+    }
+    return this.http.get<ResponseDataList<Produto>>(
+      environment.baseUrl + this.baseApi + '/buscar',
+      {params}
+    );
+  }
+
+  /*findAll(): Observable<Produto>{
+    return this.http.get<Produto>(environment.baseUrl + this.baseApi + '/buscar');
+  }*/
 
   showMessage(msg: string, isError: boolean = false) : void {
     this.snackBar.open(msg, 'X', {

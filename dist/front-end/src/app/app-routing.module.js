@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppRoutingModule = void 0;
+const produtos_edit_component_1 = require("./pages/produtos/produtos-edit/produtos-edit.component");
+const usuarios_create_component_1 = require("./pages/usuarios/usuarios-create/usuarios-create/usuarios-create.component");
 const produtos_create_component_1 = require("./pages/produtos/produtos-create/produtos-create.component");
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
@@ -17,6 +19,11 @@ const routes = [
     { path: 'produtos', children: [
             { path: '', component: produtos_list_component_1.ProdutosListComponent },
             { path: 'criar', component: produtos_create_component_1.ProdutosCreateComponent },
+            { path: ':id/edit', component: produtos_edit_component_1.ProdutosEditComponent }
+        ] },
+    { path: 'users', children: [
+            { path: '', component: produtos_list_component_1.ProdutosListComponent },
+            { path: 'criar', component: usuarios_create_component_1.UsuariosCreateComponent },
         ] }
 ];
 let AppRoutingModule = class AppRoutingModule {

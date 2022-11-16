@@ -88,7 +88,7 @@ let ProdutosService = class ProdutosService {
     findAll(options, search) {
         const where = {};
         if (search) {
-            where.name = ILike(`%${search}%`);
+            where.name = (0, typeorm_2.ILike)(`%${search}%`);
         }
         return (0, nestjs_typeorm_paginate_1.paginate)(this.repository, options, { where });
     }
@@ -139,7 +139,4 @@ ProdutosService = __decorate([
         typeorm_2.Repository])
 ], ProdutosService);
 exports.ProdutosService = ProdutosService;
-function ILike(arg0) {
-    throw new Error('Function not implemented.');
-}
 //# sourceMappingURL=produtos.service.js.map

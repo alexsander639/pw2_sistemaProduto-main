@@ -1,0 +1,65 @@
+<mat-card>
+  <mat-card-title>Editar produto</mat-card-title>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Nome</mat-label>
+      <input matInput name="nome" placeholder="Insira o nome" formControlName="name"/>
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Marca</mat-label>
+      <input matInput name="marca" placeholder="Insira a marca" formControlName="marca"/>
+      <mat-error *ngIf="form.get('marca')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+      <mat-label>Status</mat-label>
+      <mat-select name="status" formControlName="status">
+        <mat-option *ngFor="let status of statusDisponiveis" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('status')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Valor</mat-label>
+      <input matInput name="valor" placeholder="Insira o valor" formControlName="valor"/>
+      <mat-error *ngIf="form.get('valor')?.hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Descrição</mat-label>
+      <input matInput name="descricao" placeholder="Insira o uma descrição" formControlName="descricao"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+      <mat-label>Tipo do produto</mat-label>
+      <mat-select name="tipo" formControlName="tipo"
+      [compareWith]="compareProdutos">
+        <mat-option *ngFor="let tipo of tipoProdutos" [value]="tipo">
+          {{tipo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <button mat-raised-button (click)="create()" color="primary">
+    Salvar
+  </button>
+
+  <button mat-raised-button (click)="cancel()">
+    Cancelar
+  </button>
+</mat-card>
+

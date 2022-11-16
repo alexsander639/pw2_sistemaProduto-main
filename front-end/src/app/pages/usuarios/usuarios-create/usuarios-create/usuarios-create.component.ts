@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs';
 import { UsuariosService } from '../../usuarios.service';
-import { Usuario } from 'src/app/models/usuarios.model';
+import { Usuario } from '../../../../models/usuarios.model';
 
 @Component({
   selector: 'app-usuarios-create',

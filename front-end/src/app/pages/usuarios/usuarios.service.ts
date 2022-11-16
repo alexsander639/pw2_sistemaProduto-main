@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Usuario } from 'src/app/models/usuarios.model';
+import { Usuario } from './../../models/usuarios.model';
 
 @Injectable({
   providedIn: 'root'

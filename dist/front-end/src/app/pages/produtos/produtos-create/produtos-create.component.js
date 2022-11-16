@@ -13,15 +13,50 @@ exports.ProdutosCreateComponent = void 0;
 const router_1 = require("@angular/router");
 const core_1 = require("@angular/core");
 const produtos_service_1 = require("../produtos.service");
+const forms_1 = require("@angular/forms");
+const rxjs_1 = require("rxjs");
 let ProdutosCreateComponent = class ProdutosCreateComponent {
-    constructor(router, produtosService) {
+    constructor(router, produtosService, fb) {
         this.router = router;
         this.produtosService = produtosService;
+        this.fb = fb;
+        this.form = new forms_1.FormGroup({});
+        this.tipoProdutos = [
+            'Cooler', 'Fonte de Energia', 'HD', 'Headset',
+            'Monitor', 'Processador', 'RAM', 'SSD', 'Teclado'
+        ];
+        this.statusDisponiveis = [true, false];
+        this.produtos = [];
     }
     ngOnInit() {
+        this.produtosService.list().subscribe((res) => this.produtos = res);
+        this.form = this.fb.group({
+            name: [null, [forms_1.Validators.required]],
+            marca: [null, [forms_1.Validators.required]],
+            status: [null, [forms_1.Validators.required]],
+            valor: [null, [forms_1.Validators.required]],
+            descricao: [],
+            tipo: [],
+        });
     }
     create() {
-        this.produtosService.showMessage('Produto cadastrado com sucesso!');
+        this.form.markAllAsTouched();
+        if (this.form.valid) {
+            const produto = this.form.value;
+            console.log(produto);
+            this.produtosService.create(produto)
+                .pipe((0, rxjs_1.catchError)(error => {
+                this.produtosService.showMessage('Produto não pode ser cadastrado!', true);
+                return error;
+            }))
+                .subscribe(resp => {
+                this.produtosService.showMessage('Produto cadastrado com sucesso!');
+                this.router.navigate(['/produtos']);
+            });
+        }
+        else {
+            this.produtosService.showMessage('Preencha os campos obrigatórios!', true);
+        }
     }
     cancel() {
         this.router.navigate(['/produtos']);
@@ -34,7 +69,8 @@ ProdutosCreateComponent = __decorate([
         styleUrls: ['./produtos-create.component.scss']
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        produtos_service_1.ProdutosService])
+        produtos_service_1.ProdutosService,
+        forms_1.FormBuilder])
 ], ProdutosCreateComponent);
 exports.ProdutosCreateComponent = ProdutosCreateComponent;
 //# sourceMappingURL=produtos-create.component.js.map

@@ -1,3 +1,4 @@
+import { ProdutosEditComponent } from './pages/produtos/produtos-edit/produtos-edit.component';
 import { UsuariosCreateComponent } from './pages/usuarios/usuarios-create/usuarios-create/usuarios-create.component';
 import { ProdutosCreateComponent } from './pages/produtos/produtos-create/produtos-create.component';
 import { NgModule } from '@angular/core';
@@ -10,6 +11,7 @@ const routes: Routes = [
   {path:'produtos', children: [
     {path: '', component: ProdutosListComponent},
     {path: 'criar', component: ProdutosCreateComponent},
+    {path: ':id/edit', component: ProdutosEditComponent}
   ]},
   {path:'users', children: [
     {path: '', component: ProdutosListComponent},

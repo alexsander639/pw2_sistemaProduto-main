@@ -12,7 +12,7 @@ import { CreateProdutoDto } from './dto/create-produto.dto';
 import { Produto } from './produto.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { RecordNotFoundException } from '@exceptions/record-not-found.exception';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
@@ -109,7 +109,4 @@ export class ProdutosService {
     }
     return user;
   }
-}
-function ILike(arg0: string): string | import('typeorm').FindOperator<string> {
-  throw new Error('Function not implemented.');
 }
