@@ -3,4 +3,5 @@ export declare class CreateProdutoDto {
     marca: string;
     valor: number;
     descricao: string;
+    tipoProduto: string;
 }

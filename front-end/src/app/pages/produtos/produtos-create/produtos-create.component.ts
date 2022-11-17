@@ -28,6 +28,8 @@ export class ProdutosCreateComponent implements OnInit {
     'Monitor', 'Processador', 'RAM', 'SSD', 'Teclado'
   ];
 
+  tipoProdutoSelect: string = '';
+
   statusDisponiveis: boolean[] = [true, false];
   rotaProduto!: string;
   produtos: Produto[] = [];
@@ -45,9 +47,17 @@ export class ProdutosCreateComponent implements OnInit {
       marca: [null, [Validators.required]],
       status: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      descricao: [],
+      descricao: [null, [Validators.required]],
+      tipoProduto: [],
+      rgb: [],
+      voltagem: [],
+      memoria: [],
       tipo: [],
-      /*COLOCAR ATRIB DOS FILHOS AQUI COMO NÃO OBRIGATÓRIO */
+      polegadas: [],
+      gigahertz: [],
+      cache: [],
+      capacidade: [],
+      mecanico: []
     });
   }
 
@@ -55,6 +65,7 @@ export class ProdutosCreateComponent implements OnInit {
     this.form.markAllAsTouched();
 
     if(this.form.valid){
+      //Verifico se o produto cadastrado é um específico ou um gerérico
       const produto: Produto = this.identityProduto();
 
       console.log(produto);
@@ -73,9 +84,12 @@ export class ProdutosCreateComponent implements OnInit {
       this.produtosService.showMessage('Preencha os campos obrigatórios!', true);
     }
   }
+  cancel():void {
+      this.router.navigate(['/produtos']);
+  }
 
   identityProduto() : Produto {
-    switch(this.form.get('tipo')!.value){
+    switch(this.tipoProdutoSelect){
       case 'Cooler':
         const cooler: Cooler = this.form.value;
         this.rotaProduto = '/criar/cooler';
@@ -119,8 +133,9 @@ export class ProdutosCreateComponent implements OnInit {
     }
   }
 
-  cancel():void {
-    this.router.navigate(['/produtos']);
+  habilitaCampos(produtoSelect: string){
+    this.tipoProdutoSelect = produtoSelect;
+    console.log('habilita campos de: ' + this.tipoProdutoSelect);
   }
 
 }

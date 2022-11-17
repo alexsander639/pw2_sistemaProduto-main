@@ -12,15 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProdutosListComponent = void 0;
 const core_1 = require("@angular/core");
 const forms_1 = require("@angular/forms");
+const dialog_1 = require("@angular/material/dialog");
 const paginator_1 = require("@angular/material/paginator");
 const router_1 = require("@angular/router");
 const rxjs_1 = require("rxjs");
+const produtos_delete_component_1 = require("../produtos-delete/produtos-delete.component");
 const produtos_service_1 = require("../produtos.service");
 let ProdutosListComponent = class ProdutosListComponent {
-    constructor(router, produtosService, fb) {
+    constructor(router, produtosService, fb, dialog) {
         this.router = router;
         this.produtosService = produtosService;
         this.fb = fb;
+        this.dialog = dialog;
         this.isLoadingResults = true;
         this.data = [];
         this.resultsLength = 0;
@@ -64,6 +67,18 @@ let ProdutosListComponent = class ProdutosListComponent {
     navigateToProdutosCreate() {
         this.router.navigate(['/produtos/criar']);
     }
+    openDeleteDialog(produto) {
+        const dialogRef = this.dialog.open(produtos_delete_component_1.ProdutosDeleteComponent, { data: produto });
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.produtosService.delete(produto.id).subscribe(() => {
+                    this.paginator.firstPage();
+                    this.refresh.next(true);
+                    this.produtosService.showMessage('Produto excluído com sucesso!');
+                });
+            }
+        });
+    }
 };
 __decorate([
     (0, core_1.ViewChild)(paginator_1.MatPaginator),
@@ -77,7 +92,8 @@ ProdutosListComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         produtos_service_1.ProdutosService,
-        forms_1.FormBuilder])
+        forms_1.FormBuilder,
+        dialog_1.MatDialog])
 ], ProdutosListComponent);
 exports.ProdutosListComponent = ProdutosListComponent;
 //# sourceMappingURL=produtos-list.component.js.map

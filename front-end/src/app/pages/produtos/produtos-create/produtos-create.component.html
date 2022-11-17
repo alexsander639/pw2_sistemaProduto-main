@@ -32,7 +32,7 @@
 
     <mat-form-field appearance="outline" style="width:100%">
       <mat-label>Valor</mat-label>
-      <input matInput name="valor" placeholder="Insira o valor" formControlName="valor"/>
+      <input matInput name="valor" type="number" placeholder="Insira o valor" formControlName="valor"/>
       <mat-error *ngIf="form.get('valor')?.hasError('required')">
         Campo obrigatório
       </mat-error>
@@ -45,9 +45,69 @@
 
     <mat-form-field appearance="outline" >
       <mat-label>Tipo do produto</mat-label>
-      <mat-select name="tipo" formControlName="tipo">
+      <mat-select name="tipoProduto" formControlName="tipoProduto" (selectionChange)="habilitaCampos($event.value)" [(ngModel)]="tipoProdutoSelect">
         <mat-option *ngFor="let tipo of tipoProdutos" [value]="tipo">
           {{tipo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Cooler'" >
+      <mat-label>Contêm RGB:</mat-label>
+      <mat-select name="rgb" formControlName="rgb">
+        <mat-option *ngFor="let status of statusDisponiveis" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Fonte de Energia'" >
+      <input matInput name="voltagem" placeholder="Informe o valor da Voltagem" formControlName="voltagem">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'HD'" >
+      <input matInput name="memoria" placeholder="Informe a quantidade de memória" formControlName="memoria">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Headset'" >
+      <input matInput name="tipo" placeholder="Informe o tipo de Headset (Com ou Sem fio)" formControlName="tipo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Monitor'" >
+      <input matInput name="polegadas" placeholder="Informe as polegadas do monitor" formControlName="polegadas">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Processador'" >
+      <input matInput name="gigahertz" type="number" placeholder="Informe a quantidade de Gigahertz" formControlName="gigahertz">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Processador'" >
+      <input matInput name="cache" type="number" placeholder="Informe a quantidade de Cache" formControlName="cache">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'RAM'" >
+      <input matInput name="tipo" placeholder="Informe o tipo de DDR (DDR4, DDR5)" formControlName="tipo">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'RAM'" >
+      <input matInput name="capacidade" placeholder="Informe a capacidade total da RAM" formControlName="capacidade">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'SSD'" >
+      <input matInput name="memoria" placeholder="Informe a quantidade de memória" formControlName="memoria">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Teclado'" >
+      <mat-label>Contêm RGB:</mat-label>
+      <mat-select name="rgb" formControlName="rgb">
+        <mat-option *ngFor="let status of statusDisponiveis" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width:100%" *ngIf="tipoProdutoSelect == 'Teclado'" >
+      <mat-label>Mecânico:</mat-label>
+      <mat-select name="mecanico" formControlName="mecanico">
+        <mat-option *ngFor="let status of statusDisponiveis" [value]="status">
+          {{status}}
         </mat-option>
       </mat-select>
     </mat-form-field>

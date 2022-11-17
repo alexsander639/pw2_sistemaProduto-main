@@ -47,10 +47,6 @@ export class ProdutosService {
     );
   }
 
-  /*findAll(): Observable<Produto>{
-    return this.http.get<Produto>(environment.baseUrl + this.baseApi + '/buscar');
-  }*/
-
   showMessage(msg: string, isError: boolean = false) : void {
     this.snackBar.open(msg, 'X', {
       duration: 5000,

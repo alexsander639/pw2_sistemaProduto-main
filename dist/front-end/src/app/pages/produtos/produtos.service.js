@@ -21,8 +21,8 @@ let ProdutosService = class ProdutosService {
         this.http = http;
         this.baseApi = '/produtos';
     }
-    create(produto) {
-        return this.http.post(environment_1.environment.baseUrl + this.baseApi + '/criar', produto);
+    create(produto, tipoProduto) {
+        return this.http.post(environment_1.environment.baseUrl + this.baseApi + tipoProduto, produto);
     }
     findById(id) {
         return this.http.get(environment_1.environment.baseUrl + this.baseApi + `/${id}`);

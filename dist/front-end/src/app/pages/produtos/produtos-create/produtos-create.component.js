@@ -25,6 +25,7 @@ let ProdutosCreateComponent = class ProdutosCreateComponent {
             'Cooler', 'Fonte de Energia', 'HD', 'Headset',
             'Monitor', 'Processador', 'RAM', 'SSD', 'Teclado'
         ];
+        this.tipoProdutoSelect = '';
         this.statusDisponiveis = [true, false];
         this.produtos = [];
     }
@@ -35,16 +36,26 @@ let ProdutosCreateComponent = class ProdutosCreateComponent {
             marca: [null, [forms_1.Validators.required]],
             status: [null, [forms_1.Validators.required]],
             valor: [null, [forms_1.Validators.required]],
-            descricao: [],
+            descricao: [null, [forms_1.Validators.required]],
+            tipoProduto: [],
+            rgb: [],
+            voltagem: [],
+            memoria: [],
             tipo: [],
+            polegadas: [],
+            gigahertz: [],
+            cache: [],
+            capacidade: [],
+            mecanico: []
         });
     }
     create() {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            const produto = this.form.value;
+            const produto = this.identityProduto();
             console.log(produto);
-            this.produtosService.create(produto)
+            console.log(this.rotaProduto);
+            this.produtosService.create(produto, this.rotaProduto)
                 .pipe((0, rxjs_1.catchError)(error => {
                 this.produtosService.showMessage('Produto não pode ser cadastrado!', true);
                 return error;
@@ -60,6 +71,54 @@ let ProdutosCreateComponent = class ProdutosCreateComponent {
     }
     cancel() {
         this.router.navigate(['/produtos']);
+    }
+    identityProduto() {
+        switch (this.tipoProdutoSelect) {
+            case 'Cooler':
+                const cooler = this.form.value;
+                this.rotaProduto = '/criar/cooler';
+                return cooler;
+            case 'Fonte de Energia':
+                const fonte = this.form.value;
+                this.rotaProduto = '/criar/fonte-energia';
+                return fonte;
+            case 'HD':
+                const hd = this.form.value;
+                this.rotaProduto = '/criar/hd';
+                return hd;
+            case 'Headset':
+                const headset = this.form.value;
+                this.rotaProduto = '/criar/headset';
+                return headset;
+            case 'Monitor':
+                const monitor = this.form.value;
+                this.rotaProduto = '/criar/monitor';
+                return monitor;
+            case 'Processador':
+                const processador = this.form.value;
+                this.rotaProduto = '/criar/processador';
+                return processador;
+            case 'RAM':
+                const ram = this.form.value;
+                this.rotaProduto = '/criar/ram';
+                return ram;
+            case 'SSD':
+                const ssd = this.form.value;
+                this.rotaProduto = '/criar/ssd';
+                return ssd;
+            case 'Teclado':
+                const teclado = this.form.value;
+                this.rotaProduto = '/criar/teclado';
+                return teclado;
+            default:
+                const produto = this.form.value;
+                this.rotaProduto = '/criar';
+                return produto;
+        }
+    }
+    habilitaCampos(produtoSelect) {
+        this.tipoProdutoSelect = produtoSelect;
+        console.log('habilita campos de: ' + this.tipoProdutoSelect);
     }
 };
 ProdutosCreateComponent = __decorate([

@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateProdutoDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String, description: "O nome do produto \u00E9 para identifica\u00E7\u00E3o do mesmo" }, marca: { required: true, type: () => String, description: "A marca distingue um produto do outro", example: "LG" }, valor: { required: true, type: () => Number, description: "O valor em R$ do produto" }, descricao: { required: true, type: () => String, description: "A descri\u00E7ao informa as caracteristicas do produto" } };
+        return { name: { required: true, type: () => String, description: "O nome do produto \u00E9 para identifica\u00E7\u00E3o do mesmo" }, marca: { required: true, type: () => String, description: "A marca distingue um produto do outro", example: "LG" }, valor: { required: true, type: () => Number, description: "O valor em R$ do produto" }, descricao: { required: true, type: () => String, description: "A descri\u00E7ao informa as caracteristicas do produto" }, tipoProduto: { required: true, type: () => String, description: "O tipo do produto" } };
     }
 }
 __decorate([
@@ -47,5 +47,11 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CreateProdutoDto.prototype, "descricao", void 0);
+__decorate([
+    (0, class_validator_1.MaxLength)(1000, {
+        message: 'O tipo de Produto deve ter menos de 1000 caracteres',
+    }),
+    __metadata("design:type", String)
+], CreateProdutoDto.prototype, "tipoProduto", void 0);
 exports.CreateProdutoDto = CreateProdutoDto;
 //# sourceMappingURL=create-produto.dto.js.map

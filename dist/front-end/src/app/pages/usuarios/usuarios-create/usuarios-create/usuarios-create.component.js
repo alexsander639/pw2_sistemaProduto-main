@@ -43,7 +43,7 @@ let UsuariosCreateComponent = class UsuariosCreateComponent {
             }))
                 .subscribe(resp => {
                 this.usuariosService.showMessage('Usuário cadastrado com sucesso!');
-                this.router.navigate(['/users']);
+                this.router.navigate(['/login']);
             });
         }
         else {
@@ -51,7 +51,7 @@ let UsuariosCreateComponent = class UsuariosCreateComponent {
         }
     }
     cancel() {
-        this.router.navigate(['/users']);
+        this.router.navigate(['/login']);
     }
 };
 UsuariosCreateComponent = __decorate([

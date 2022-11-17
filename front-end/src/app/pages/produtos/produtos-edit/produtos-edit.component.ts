@@ -30,6 +30,8 @@ export class ProdutosEditComponent implements OnInit {
     'Monitor', 'Processador', 'RAM', 'SSD', 'Teclado'
   ];
 
+  tipoProdutoSelect: string = '';
+
   statusDisponiveis: boolean[] = [true, false];
   rotaProduto!: string;
   produtos: Produto[] = [];
@@ -50,14 +52,76 @@ export class ProdutosEditComponent implements OnInit {
       marca: [null, [Validators.required]],
       status: [null, [Validators.required]],
       valor: [null, [Validators.required]],
-      descricao: [],
+      descricao: [null, [Validators.required]],
+      tipoProduto: [],
+      rgb: [],
+      voltagem: [],
+      memoria: [],
       tipo: [],
+      polegadas: [],
+      gigahertz: [],
+      cache: [],
+      capacidade: [],
+      mecanico: []
     });
 
+    this.tipoProdutoSelect = this.form.get('tipoProduto')!.value;
+
     this.produtosService.findById(this.id).subscribe(resp => {
-      this.produto = resp;
+      this.tests(resp);
+
+      //console.log('PRODUTO PARA EDITAR');
+      //console.log(this.produto);
+
       this.form.patchValue(this.produto);
+
+      console.log('TIPO PRODUTO');
+      console.log(this.tipoProdutoSelect);
     })
+  }
+
+  tests(p: Produto) : void {
+    switch(p.tipoProduto){
+      case 'Cooler':
+        console.log(<Cooler>p);
+        this.produto = (p as Cooler);
+        break;
+      case 'Fonte de Energia':
+        const fonte: FonteEnergia = p as FonteEnergia;
+        this.produto = fonte;
+        break;
+      case 'HD':
+        const hd: Hd = p as Hd;
+        this.produto = hd;
+        break;
+      case 'Headset':
+        const headset: Headset = p as Headset;
+        this.produto = headset;
+        break;
+      case 'Monitor':
+        const monitor: Monitor = p as Monitor;
+        this.produto = monitor;
+        break;
+      case 'Processador':
+        const processador: Processador = p as Processador;
+        this.produto = processador;
+        break;
+      case 'RAM':
+        const ram: Ram = p as Ram;
+        this.produto = ram;
+        break;
+      case 'SSD':
+        const ssd: Ssd = p as Ssd;
+        this.produto = ssd;
+        break;
+      case 'Teclado':
+        const teclado: Teclado = p as Teclado;
+        this.produto = teclado;
+        break;
+      default:
+        const produto: Produto = p;
+        this.produto = produto;
+    }
   }
 
   create():void {
@@ -66,7 +130,7 @@ export class ProdutosEditComponent implements OnInit {
     if(this.form.valid){
       const produto: Produto = this.identityProduto();
 
-      console.log(produto.tipo + ' rota: ' + this.rotaProduto);
+      console.log(produto.tipoProduto + ' rota: ' + this.rotaProduto);
 
       this.produtosService.update(this.id, produto)
       .pipe(catchError(error => {
@@ -87,7 +151,7 @@ export class ProdutosEditComponent implements OnInit {
   }
 
   identityProduto() : Produto {
-    switch(this.form.get('tipo')!.value){
+    switch(this.form.get('tipoProduto')!.value){
       case 'Cooler':
         const cooler: Cooler = this.form.value;
         this.rotaProduto = '/criar/cooler';
@@ -132,6 +196,12 @@ export class ProdutosEditComponent implements OnInit {
   }
 
   compareProdutos(o1: Produto, o2: Produto): boolean{
-    return o1?.id == o2?.id;
+    let compara: boolean = o1?.id == o2?.id;
+    if(compara){
+      this.tipoProdutoSelect = o1.tipoProduto;
+    }else{
+      this.tipoProdutoSelect = o2.tipoProduto;
+    }
+    return compara;
   }
 }

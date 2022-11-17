@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
+const json_date_interceptor_1 = require("./interceptors/json-date.interceptor");
+const jwt_auth_interceptor_1 = require("./interceptors/jwt-auth.interceptor");
 const produtos_create_component_1 = require("./pages/produtos/produtos-create/produtos-create.component");
 const produtos_list_component_1 = require("./pages/produtos/produtos-list/produtos-list.component");
 const home_component_1 = require("./pages/home/home.component");
@@ -16,9 +18,11 @@ const snack_bar_1 = require("@angular/material/snack-bar");
 const form_field_1 = require("@angular/material/form-field");
 const select_1 = require("@angular/material/select");
 const input_1 = require("@angular/material/input");
+const dialog_1 = require("@angular/material/dialog");
 const table_1 = require("@angular/material/table");
 const paginator_1 = require("@angular/material/paginator");
 const progress_spinner_1 = require("@angular/material/progress-spinner");
+const grid_list_1 = require("@angular/material/grid-list");
 const platform_browser_1 = require("@angular/platform-browser");
 const animations_1 = require("@angular/platform-browser/animations");
 const http_1 = require("@angular/common/http");
@@ -35,12 +39,17 @@ const card_1 = require("@angular/material/card");
 const button_1 = require("@angular/material/button");
 const usuarios_create_component_1 = require("./pages/usuarios/usuarios-create/usuarios-create/usuarios-create.component");
 const produtos_edit_component_1 = require("./pages/produtos/produtos-edit/produtos-edit.component");
+const produtos_delete_component_1 = require("./pages/produtos/produtos-delete/produtos-delete.component");
+const page_component_1 = require("./layout/page/page.component");
+const login_component_1 = require("./pages/login/login.component");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, core_1.NgModule)({
-        declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, footer_component_1.FooterComponent, red_directive_1.RedDirective, nav_component_1.NavComponent, home_component_1.HomeComponent, produtos_list_component_1.ProdutosListComponent, produtos_create_component_1.ProdutosCreateComponent, usuarios_create_component_1.UsuariosCreateComponent, produtos_edit_component_1.ProdutosEditComponent],
+        declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, footer_component_1.FooterComponent, red_directive_1.RedDirective, nav_component_1.NavComponent, home_component_1.HomeComponent, produtos_list_component_1.ProdutosListComponent, produtos_create_component_1.ProdutosCreateComponent, usuarios_create_component_1.UsuariosCreateComponent, produtos_edit_component_1.ProdutosEditComponent, produtos_delete_component_1.ProdutosDeleteComponent, page_component_1.PageComponent, login_component_1.LoginComponent],
         imports: [
+            grid_list_1.MatGridListModule,
+            dialog_1.MatDialogModule,
             progress_spinner_1.MatProgressSpinnerModule,
             paginator_1.MatPaginatorModule,
             table_1.MatTableModule,
@@ -59,7 +68,11 @@ AppModule = __decorate([
             animations_1.BrowserAnimationsModule,
             http_1.HttpClientModule,
         ],
-        providers: [],
+        providers: [
+            { provide: http_1.HTTP_INTERCEPTORS, useClass: jwt_auth_interceptor_1.JwtAuthInterceptor, multi: true },
+            { provide: http_1.HTTP_INTERCEPTORS, useClass: json_date_interceptor_1.JsonDateInterceptor, multi: true },
+            { provide: core_1.LOCALE_ID, useValue: 'pt-BR' }
+        ],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -21,7 +21,6 @@ export class UsuariosCreateComponent implements OnInit {
     private readonly fb: FormBuilder) { }
 
     ngOnInit(): void {
-      //this.usuariosService.list().subscribe((res) => this.produtos = res);
 
       this.form = this.fb.group({
         email:[null, [Validators.required]],
@@ -46,7 +45,7 @@ export class UsuariosCreateComponent implements OnInit {
         }))
         .subscribe(resp => {
           this.usuariosService.showMessage('Usuário cadastrado com sucesso!');
-          this.router.navigate(['/users']);
+          this.router.navigate(['/login']);
         });
       }else{
         this.usuariosService.showMessage('Preencha os campos obrigatórios!', true);
@@ -54,7 +53,7 @@ export class UsuariosCreateComponent implements OnInit {
     }
 
     cancel():void {
-      this.router.navigate(['/users']);
+      this.router.navigate(['/login']);
     }
 
 }

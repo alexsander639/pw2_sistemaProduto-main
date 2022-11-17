@@ -1,7 +1,9 @@
+import { JsonDateInterceptor } from './interceptors/json-date.interceptor';
+import { JwtAuthInterceptor } from './interceptors/jwt-auth.interceptor';
 import { ProdutosCreateComponent } from './pages/produtos/produtos-create/produtos-create.component';
 import { ProdutosListComponent } from './pages/produtos/produtos-list/produtos-list.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,10 +14,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,10 +34,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { UsuariosCreateComponent } from './pages/usuarios/usuarios-create/usuarios-create/usuarios-create.component';
 import { ProdutosEditComponent } from './pages/produtos/produtos-edit/produtos-edit.component';
 import { ProdutosDeleteComponent } from './pages/produtos/produtos-delete/produtos-delete.component';
+import { PageComponent } from './layout/page/page.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, RedDirective, NavComponent, HomeComponent, ProdutosListComponent, ProdutosCreateComponent, UsuariosCreateComponent, ProdutosEditComponent, ProdutosDeleteComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, RedDirective, NavComponent, HomeComponent, ProdutosListComponent, ProdutosCreateComponent, UsuariosCreateComponent, ProdutosEditComponent, ProdutosDeleteComponent, PageComponent, LoginComponent],
   imports: [
+    MatGridListModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
@@ -54,7 +60,11 @@ import { ProdutosDeleteComponent } from './pages/produtos/produtos-delete/produt
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtAuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: JsonDateInterceptor, multi: true},
+    { provide: LOCALE_ID, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,4 +6,5 @@ export declare class Produto extends BaseEntity {
     status: boolean;
     valor: number;
     descricao: string;
+    tipoProduto: string;
 }

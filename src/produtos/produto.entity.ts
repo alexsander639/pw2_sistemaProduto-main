@@ -29,5 +29,5 @@ export class Produto extends BaseEntity {
   descricao: string;
 
   @Column({ nullable: false, type: "varchar", length: 1000 })
-  tipo: string;
+  tipoProduto: string;
 }

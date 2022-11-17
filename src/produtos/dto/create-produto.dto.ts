@@ -49,7 +49,7 @@ export class CreateProdutoDto {
     * @example Monitor, Cooler, null
     */
    @MaxLength(1000, {
-    message: 'O tipo deve ter menos de 1000 caracteres',
+    message: 'O tipo de Produto deve ter menos de 1000 caracteres',
   })
-  tipo: string;
+  tipoProduto: string;
 }

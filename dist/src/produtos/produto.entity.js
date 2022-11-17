@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 let Produto = class Produto extends typeorm_1.BaseEntity {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, marca: { required: true, type: () => String }, status: { required: true, type: () => Boolean }, valor: { required: true, type: () => Number }, descricao: { required: true, type: () => String } };
+        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, marca: { required: true, type: () => String }, status: { required: true, type: () => Boolean }, valor: { required: true, type: () => Number }, descricao: { required: true, type: () => String }, tipoProduto: { required: true, type: () => String } };
     }
 };
 __decorate([
@@ -41,6 +41,10 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: false, type: "varchar", length: 1000 }),
     __metadata("design:type", String)
 ], Produto.prototype, "descricao", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: false, type: "varchar", length: 1000 }),
+    __metadata("design:type", String)
+], Produto.prototype, "tipoProduto", void 0);
 Produto = __decorate([
     (0, typeorm_1.Entity)(),
     (0, typeorm_1.TableInheritance)({ column: { type: "varchar", name: "tipo" } })
